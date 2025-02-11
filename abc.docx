@@ -1,0 +1,222 @@
+*** Practical 1***
+Aim: Univariate Regression Model
+library (readxl)
+library(dplyr)
+library(lmtest)
+data<- read.csv(“”)
+view(data)
+summary(data)
+y<-data$’Delinquency index’
+x<-data$’Intelligence Quotient’
+model<-lm(y~x)
+model
+summary(model)
+plot(model)
+shapiro.test(y)
+bptest(model)
+
+*** Practical 2***
+
+Aim: Multivariate Regression Model.
+library (readxl)
+library(dplyr)
+library(lmtest)
+data<- read.csv(“”)
+view(data)
+data1 <-data %>%
+	filter(!is.na(salary))
+summary(data)
+names(data)
+y = data$salary
+x1 = data$ssc_p
+x2 = data$hsc_p
+x3 = data$degree_p
+x4 = data$mba_p
+model<-lm(y ~x1+x2+x3+x4)
+summary(model)
+plot(model)
+shapiro.test(y)
+bptest(model)
+
+***Practical-3***
+Aim: Methods to detect heteroscedasticity and remedial measures
+Library(readxl)
+Library(lmtest)
+d <- read_excel(“”)
+view(d)
+summary(d)
+y<-d$’gestation period (days)’
+x1<-d$’brain weight (gms)’
+x2<-d$’body weight (kgs)’
+x3<-d$’ac, Litter size’
+model_1<-lm(y~x1+x2+x3)
+model_1
+summary(model_1)
+plot(model_1)
+shapiro.test(y)
+bptest(model_1)
+d.1<-d[-c(72),]
+summary(d.1)
+y1<-d.1$’gestation period (days)’
+x11<-d.1$’brain weight (gms)’
+x21<-d.1$’body weight (kgs)’
+x31<-d.1$’ac, Litter size’
+model_11<-lm(y1~x11+x21+x31)
+model_11
+summary(model_11)
+plot(model_11)
+d2<d.1[-c(77), ]
+summary(d2)
+y2<-d2$’gestation period (days)’
+x12<-d2$’brain weight (gms)’
+x22<-d2$’body weight (kgs)’
+x32<-d2$’ac, Litter size’
+model_12<-lm(y2~x12+x22+x32)
+model_12
+summary(model_12)
+plot(model_12)
+y3<-log(y2)
+model_13<- lm(y3~x12+x22+x32)
+summary(model_13)
+plot(model_13)
+d3<-d2[-c(52), ]
+y5<-d3$’gestation period (days)’
+x13<-d3$’brain weight (gms)’
+x23<-d3$’body weight (kgs)’
+x33<-d3$’ac, Litter size’
+model_15<-lm(y5~x13+x23+x33)
+model_15
+plot(model_15)
+d4<-d3[-c(24),]
+y7<-d4$ gestation period (days)
+x14<-d4S brain weight (gms)
+x24<-d45 body weight (kg)
+x34<-d45 av. Litter size
+model 17 <1m(y7~x14+x24+x34)
+model_17
+summary(model_17)
+plot (model_17)
+bptest(model_17)
+
+*** Practical-4 ***
+Aim: Methods to detect multicollinearity and remedial measures
+Library(MASS)
+Library(readxl)
+d1<-read_excel(“”)
+View(d1) 
+Y=d1&Import
+x1=d1&GDP
+x2=d1$SF
+x3=d1$consp
+model<-lm(y~x1+x2+x3)
+model
+summary(model)
+plot(model)
+shapiro.test(y)
+bptest(model)
+library(mctest)
+design<-cbind(x1,x2,x3)
+mctest(model, type=’I’, method = “VIF”)
+library(glmnet)
+ridgem<-cv.glmnet(design,y)
+ridgem
+lambda<-ridgem$lambda.min
+lambda
+summary(modelridge)
+*** Practical – 5***
+Aim: Methods to detect auto-correlation and remedial measures
+library(readxl)
+d<- read_excel(“”)
+view(d)
+summary(d)
+y<-d$’gestation period (days)’
+x1<-d$’brain weight (gms)’
+x2<-d$’body weight (kgs)’
+x3<-d$’ac, Litter size’
+model_1 <- lm(y~x1+x2+x3)
+model_1
+library(lmtest)
+dw_test<-dwtest(model_1)
+dw_test
+
+*** Practical-6 ***
+Aim: Interpreting on Dummy variable
+data(“mtcars”)
+view(mtcars)
+mtcars&am<- factor(mtcars$am, levels = c(0,1), labels=c(“Automatic”,”Manual”))
+model<-lm(mpg~am, data=mtcars)
+summary(model)
+data(“iris”)
+iris$Species <- factor(iris$Species)
+model <- lm(Sepal.Length! Specoes+Sepal.Width+Petal.Length,data=iris)
+summary(model)
+
+*** Practical-7 ***
+Aim: COGS
+Parameter	Value
+Initial Revenue	1,00,000
+Revenue Growth Rate (%)	10%
+COGS as % of Revenue	60%
+Operating Expenses (%)	20%
+Tax Rate (%)	25%
+	
+Year	Revenue	COGS	Gross Profit	Operating Expenses	Operating Income	Taxes	Net Income
+1	1,00,000	60000	40,000	20000	20,000	5000	15,000
+2	110000	66000	44,000	22000	22,000	5500	16,500
+3	121000	72600	48,400	24200	24,200	6050	18,150
+4	133100	79860	53,240	26620	26,620	6655	19,965
+5	146410	87846	58,564	29282	29,282	7320.5	21,962
+Revenue = Initial*(1+Revenue Growth Rate)
+COGS = Revenue*COGS as % of Revenue
+Gross Profit = Revenue – COGS
+Operating expense= Revenue*Initial Revenue
+Operating Income = Gross Profit – Operating Expense
+Taxes = Income * Tax Rate
+Net income = Operating Income - Taxes
+
+***Practical – 9***
+Aim: Auditing and Testing
+Category	Q1	Q2	Q3	Q4	Total
+Operating Cash Inflows	5000	6000	5500	5800	22300
+Operating Cash Outflows	-4000	-4200	-4100	-3900	-16200
+Investing Cash Inflows	2000	2500	2400	2300	9200
+Investing Cash Outflows	-3000	-3100	-3200	-3100	-12400
+Financing Cash Inflows	1000	1200	1300	1400	4900
+Financing Cash Outflows	-500	-600	-700	-800	-2600
+Net Cash Flow					5200
+Beginning Cash Balance	1000				
+Ending Cash Balance					6200
+
+Metric	Value
+Total Assets	50000
+Total Liabilities	20000
+Net Income	10000
+Total Revenue	70000
+Shareholder Equity	30000
+	
+Calculated Ratios	Value
+Debt-to-Equity Ratio	0.714285714
+Return on Assets (ROA)	0.4
+Net Profit Margin	2
+DTE = Debt/Equity
+ROA = Net Income/Current Asset
+Net Profit Margin = Net Income/Revenue
+Curren Ratio = Asset/Liability
+Year	Revenue	Growth %	Projected Revenue
+2023	100000		
+2024	110000	10	110000
+2025	118800	8	118800
+2026		5	124740
+Projected Revenue = Revenue of previous year * (1 + Growth % of current year/100)
+Period	Beginning Balance	Payment	Interest	Principal	Ending Balance
+1	100000	12000	5000	7000	93000
+2	93000	12000	4650	7350	85650
+3	85650	12000	4282.5	7717.5	77932.5
+Interest = Beginning Balance * 5%
+Principal =Payment – Interest
+Ending = Beginning – Principal
+Scenario	Revenue	Costs	Profit
+Base	100000	70000	30000
+Best	120000	65000	55000
+Worst	80000	75000	5000
+Revenue-Cost
